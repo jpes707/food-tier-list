@@ -5,6 +5,7 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import AlertDialog from './AlertDialog';
 
 export default function TitlebarImageList(props) {
   return (
@@ -24,12 +25,7 @@ export default function TitlebarImageList(props) {
             title={item.title}
             subtitle={'Votes:' + item.votes}
             actionIcon={
-              <IconButton
-                sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                aria-label={`info about ${item.title}`}
-              >
-                <InfoIcon />
-              </IconButton>
+              <AlertDialog name = {item.title}></AlertDialog>
             }
           />
         </ImageListItem>
