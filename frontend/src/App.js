@@ -41,27 +41,24 @@ function ToggleControlToolBar() {
 }
 
 function App() {
-  const [records, setRecords] = useState([]);
- 
-  // This method fetches the records from the database.
+  const [contents, setContents] = useState([]);
+
+  const getContents = async () => {
+    const response = await fetch("http://localhost:8000/content");
+    const data = await response.json();
+    // console.log(data);
+    setContents(data);
+  };
+
   useEffect(() => {
-    async function getRecords() {
-      const response = await fetch(`http://localhost:5000/record/`);
-  
-      if (!response.ok) {
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
-        return;
-      }
-  
-      const records = await response.json();
-      setRecords(records);
-    }
-  
-    getRecords();
-  
-    return;
-  }, [records.length]);
+    getContents();
+    let tempVoteData = [];
+    console.log(contents)
+    contents.forEach((item) => {
+        tempVoteData.push(item.title)
+    });
+
+  }, []);
 
   const [mode, setMode] = React.useState('dark');
   const colorMode = React.useMemo(
@@ -82,6 +79,7 @@ function App() {
       }),
     [mode],
   );
+  
 
   return (
     <ColorModeContext.Provider value={colorMode}>
